@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .models import Person
 from .forms import PersonForm
 from django.http import HttpResponse
@@ -15,12 +15,14 @@ def home_create(request):
         }
     return render (request, "Person_form.html" ,data_employer)
 
-def home_detail(request):
+def home_detail(request,id=None):
+    instance = get_object_or_404(Person,id=id)
     data_employer = {
-     "title" :  "Detail"
+     "title" :  instance.personal_number,
+     "instance": instance,
 
     }
-    return render (request, "index.html",data_employer)
+    return render (request, "detail.html",data_employer)
 def home_list(request):
     queryset = Person.objects.all()
     data_employer = {
@@ -29,7 +31,19 @@ def home_list(request):
 
     }
     return render (request, "index.html",data_employer)
-def home_update(request):
-    return HttpResponse("<h1>lista zmieniona<h1>")
+def home_update(request,id=None):
+    instance = get_object_or_404(Person,id=id)
+    form = PersonForm(request.POST or None,instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+    data_employer = {
+    "title" :  instance.personal_number,
+    "instance": instance,
+    "form" :  form,
+    }
+    return render (request, "Person_form.html" ,data_employer)
+
+
 def home_delete(request):
         return HttpResponse("<h1>usunieto pracownika<h1>")

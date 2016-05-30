@@ -6,7 +6,7 @@
 
 <h1>{{title}} is working</h1>
 {% for obj in object_list%}
-{{obj.personal_number}}<br/>
+<a href ='{%url "detail" id=obj.id%}'>{{obj.personal_number}}</a><br/>
 {{obj.first_name}}<br/>
 {{obj.last_name}}<br/>
 {{obj.adress}}<br/>
