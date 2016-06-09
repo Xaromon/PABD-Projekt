@@ -12,6 +12,7 @@ def home_create(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
+            messages.success(request,"Utworzono pomyślnie")
             return HttpResponseRedirect(reverse('list'))
     else:
         form = PersonForm()
@@ -35,7 +36,7 @@ def home_list(request):
         "title" :"List"
 
     }
-    return render (request, "index.html",data_employer)
+    return render (request, "lista.html",data_employer)
 def home_update(request,id=None):
     instance = get_object_or_404(Person,id=id)
     if request.POST:
@@ -43,6 +44,7 @@ def home_update(request,id=None):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
+            messages.success(request,"Wyedytowano pomyślnie")
         return HttpResponseRedirect(reverse('detail', args=[instance.id]))
     else:
         form = PersonForm(instance=instance)
@@ -58,4 +60,5 @@ def home_update(request,id=None):
 def home_delete(request,id=None):
     instance = get_object_or_404(Person,id=id)
     instance.delete()
+    messages.error(request, 'Usunięto pracownika')
     return HttpResponseRedirect(reverse('list'))

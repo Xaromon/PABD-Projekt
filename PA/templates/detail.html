@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block content %}
+<div class="row">
+<div class="col-sm-6 col-md-9">
+<div class="thumbnail">
+<div class="caption">
 <h1>{{instance.title}}</h1>
-{{instance.personal_number}}<br/>
-{{instance.first_name}}<br/>
-{{instance.last_name}}<br/>
-{{instance.adress}}<br/>
-
-</body>
-</html>
+<p>Pesel:{{instance.personal_number}}</p><br/>
+<p>Imię:{{instance.first_name}}</p><br/>
+<p>Nazwisko:{{instance.last_name}}</p><br/>
+<p>Adres </br>zamieszkania:{{instance.adress}}</p><br/>
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

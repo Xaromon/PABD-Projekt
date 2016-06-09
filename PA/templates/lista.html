@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{title}} emloyers</h1>
+<table class="table table-striped">
+ <thead>
+   <tr>
+        <th>Pesel</th>
+          <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>adres</th>
+        </tr>
+    </thead>
+<tbody>
+{% for obj in object_list%}
+<tr>
+<td><a href ='{%url "detail" id=obj.id%}'>{{obj.personal_number}}</a></td>
+<td>{{obj.first_name}}</td>
+<td>{{obj.last_name}}</td>
+<td>{{obj.adress}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<form method="GET" action="{% url 'create' %}">
+{% csrf_token %}
+<button type="submit" class="btn btn-primary btn-block">Dodaj pracownika</button>
+</form>
+{% endblock content %}
+</body>
+</html>
+</table>
