@@ -10,6 +10,8 @@
 <p>Imię:{{instance.first_name}}</p><br/>
 <p>Nazwisko:{{instance.last_name}}</p><br/>
 <p>Adres </br>zamieszkania:{{instance.adress}}</p><br/>
+<p><a href="{% url 'update' id=instance.id %}" class="btn btn-primary" role="button">Edytuj</a>
+<a href="{% url 'delete' id=instance.id %}" class="btn btn-default" role="button">Usuń</a>
 </div>
 </div>
 </div>

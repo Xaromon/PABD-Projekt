@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import Person
 from .forms import PersonForm
@@ -30,13 +31,24 @@ def home_detail(request,id=None):
     }
     return render (request, "detail.html",data_employer)
 def home_list(request):
-    queryset = Person.objects.all()
+    queryset_list = Person.objects.all()
+    paginator = Paginator(queryset_list, 7)
+
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+
     data_employer = {
         "object_list":queryset,
         "title" :"List"
 
     }
     return render (request, "lista.html",data_employer)
+
 def home_update(request,id=None):
     instance = get_object_or_404(Person,id=id)
     if request.POST:

@@ -25,6 +25,21 @@
 {% csrf_token %}
 <button type="submit" class="btn btn-primary btn-block">Dodaj pracownika</button>
 </form>
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page={{ object_list.previous_page_number }}">Poprzednia</a>
+        {% endif %}
+
+        <span class="current">
+            Strona {{ object_list.number }} z {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">Następna</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock content %}
 </body>
 </html>
